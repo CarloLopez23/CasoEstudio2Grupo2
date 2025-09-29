@@ -38,6 +38,23 @@ public class Main {
         System.out.println();
     }
 
+    private static int leerPosicion(Scanner sc, int tamActual) {
+        while (true) {
+            System.out.print("Ingrese la posición (1 = primero, max = " + tamActual + "): ");
+            String s = sc.nextLine().trim();
+            try {
+                int pos = Integer.parseInt(s);
+                if (pos < 1 || pos > tamActual) {
+                    System.out.println("Posición inválida. Debe estar entre 1 y " + tamActual + ".");
+                } else {
+                    return pos;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada no válida. Por favor, digite un número entero.");
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Cola<Object> cola = new Cola<>();
@@ -66,7 +83,7 @@ public class Main {
                     pausar(sc);
                     break;
 
-                case 2: // Extraer elemento. Se elimina de la cola.
+                case 2: // Extraer elemento
                     Object extraido = cola.extraer();
                     if (extraido == null) {
                         System.out.println("La cola esta vacia, no es posible extraer.");
@@ -76,8 +93,8 @@ public class Main {
                     pausar(sc);
                     break;
 
-                case 3: // Obtener el primer elemento de la cola. Se muestra su valor, sin extraerlo.
-                            Object primero = cola.obtenerPrimero();
+                case 3: // Obtener primero
+                    Object primero = cola.obtenerPrimero();
                     if (primero == null) {
                         System.out.println("La cola esta vacia.");
                     } else {
@@ -86,13 +103,55 @@ public class Main {
                     pausar(sc);
                     break;
 
-                    //demas funciones AQUI
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                case 8:
-                case 9:
+                case 4: // Obtener último
+                    Object ultimo = cola.obtenerUltimo();
+                    if (ultimo == null) {
+                        System.out.println("La cola esta vacia.");
+                    } else {
+                        System.out.println("Ultimo elemento (sin extraer): " + ultimo);
+                    }
+                    pausar(sc);
+                    break;
+
+                case 5: // Obtener por posición
+                    if (cola.estaVacia()) {
+                        System.out.println("La cola esta vacia.");
+                        pausar(sc);
+                        break;
+                    }
+                    int pos = leerPosicion(sc, cola.tamanio());
+                    Object enPos = cola.obtenerEnPosicion1Base(pos);
+                    if (enPos == null) {
+                        System.out.println("No existe elemento en esa posicion.");
+                    } else {
+                        System.out.println("Elemento en la posicion " + pos + " (sin extraer): " + enPos);
+                    }
+                    pausar(sc);
+                    break;
+
+                case 6: // ¿Está vacía?
+                    System.out.println(cola.estaVacia() ? "SI" : "NO");
+                    pausar(sc);
+                    break;
+
+                case 7: // Tamaño
+                    System.out.println("Tamaño actual de la cola: " + cola.tamanio());
+                    pausar(sc);
+                    break;
+
+                case 8: // Mostrar cola
+                    if (cola.estaVacia()) {
+                        System.out.println("La cola esta vacia.");
+                    } else {
+                        System.out.println("Cola: " + cola.formatoVisual());
+                    }
+                    pausar(sc);
+                    break;
+
+                case 9: // Vaciar
+                    cola.vaciar();
+                    System.out.println("La cola ha sido vaciada.");
+                    pausar(sc);
                     break;
 
                 case 10:

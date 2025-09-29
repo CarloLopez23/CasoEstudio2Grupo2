@@ -19,7 +19,6 @@ public class Cola<T> {
         return tam;
     }
 
-    // insertar elemento.
     public void insertar(T dato) {
         Nodo<T> nuevo = new Nodo<>(dato);
         if (estaVacia()) {
@@ -31,7 +30,6 @@ public class Cola<T> {
         tam++;
     }
 
-    // extraer elemento
     public T extraer() {
         if (estaVacia()) return null;
         T valor = frente.dato;
@@ -41,12 +39,13 @@ public class Cola<T> {
         return valor;
     }
 
-    // obtener el primer elemento de la cola
     public T obtenerPrimero() {
         return estaVacia() ? null : frente.dato;
     }
 
-    public T obtenerUltimo() { return estaVacia() ? null : fin.dato; }
+    public T obtenerUltimo() {
+        return estaVacia() ? null : fin.dato;
+    }
 
     public T obtenerEnPosicion1Base(int pos) {
         if (pos < 1 || pos > tam) return null;
@@ -55,7 +54,10 @@ public class Cola<T> {
         return actual.dato;
     }
 
-    public void vaciar() { frente = fin = null; tam = 0; }
+    public void vaciar() {
+        frente = fin = null;
+        tam = 0;
+    }
 
     public String formatoVisual() {
         StringBuilder sb = new StringBuilder();
